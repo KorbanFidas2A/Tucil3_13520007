@@ -1,12 +1,14 @@
+import string
 import tkinter as Tk
 import numpy as np
 import time
-from tkinter import messagebox
+from tkinter import messagebox, Entry
 import sys
 
 #ganti dengan path dimana menyimpan algoritma branch and bound
-sys.path.insert(0, 'D:\Semester4\StrategiAlgoritma\Tucil3\BnB')
-from solver import BranchandBound as bb, node, prioQueue
+sys.path.insert(0, 'D:\Semester4\StrategiAlgoritma\Tucil3\solver')
+from solver import BranchandBound as bb, node, prioQueue, iomanager as io
+
 
 class GUI(Tk.Frame):
     #me-nginisiasi parent
@@ -90,3 +92,52 @@ class GUI(Tk.Frame):
         self.btn1.grid(row=4,  column=1)
         self.btn2= Tk.Button(self.frame, text="Previous", command = lambda : self.changestate2(index_matrix, len_matrix), font = ('Helvetica'))
         self.btn2.grid(row=4,  column=0)
+    
+    def error_msg(self):
+        messagebox.showerror("Puzzle not available", "Puzzle tidak bisa dipecahkan!")
+
+if __name__ == "__main__": 
+    start = time.time()
+    print("        __            .----------.                                                                                         ")
+    print("...-'  |`.        /          /                                                                .---.                        ")
+    print("|      |  |      /   ______.'            _________   _...._                                   |   |      __.....__         ")
+    print("....   |  |     /   /_                   \        |.'      '-.                                |   |  .-''         '.       ")
+    print("-|   |  |    /      '''--.              \        .'```'.    '.                              |   | /     .-''''-.  `.       ")
+    print("|   |  |   '___          `.             \      |       \     \                             |   |/     /________\   \       ")
+    print(" ...'   `--'       `'.         |             |     |        |    |_    _  .--------. .--------.|   ||                  |   ")
+    print("|         |`.        )        |             |      \      /    .| '  / | |____    | |____    ||   |\    .-------------'    ")
+    print("` --------\ |......-'        /              |     |\`'-.-'   .'.' | .' |     /   /      /   / |   | \    '-.____...---.    ")
+    print("`---------' \          _..'`               |     | '-....-'`  /  | /  |   .'   /     .'   /  |   |  `.             .'      ")
+    print("            '------'''                   .'     '.          |   `'.  |  /    /___  /    /___'---'    `''-...... -'         ")
+    print("                                        '-----------'        '   .'|  '/|         ||         |                             ")
+    print("                                                            `-'  `--' |_________||_________|                               ")
+    filename = input("Masukkan nama file yang diinginkan:  ")
+    initial = io.iomanage(filename)
+
+    #pengolahan array
+    array_of_solve = [0 for i in range (16)]
+    bb.Kurangi(initial, array_of_solve)
+
+
+    #jika bisa diselesaikan
+    if(bb.isSolvable(array_of_solve, initial)):
+        final = [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ], [ 9, 10, 11, 12 ], [13, 14, 15, 0]]
+        empty_tile_pos = bb.findZeroPos(final)
+        dict = bb.solve_puzzle(initial, empty_tile_pos, final)
+        bb.show_path_matrix(dict)
+        print(dict)
+        root=Tk.Tk()
+        app = GUI(root)
+        app.matrixmake(dict)
+        app.initialize()   
+        root.mainloop()
+    #jika tidak bisa diselesaikan
+    else:
+        root = Tk.Tk()
+        app = GUI(root)
+        app.error_msg()
+        print()
+        print("Puzzle tidak bisa dipecahkan!")
+    final_time = time.time()
+    print()
+    print("Waktu eksekusi program: " + str(final_time - start))
