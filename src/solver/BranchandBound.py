@@ -23,6 +23,7 @@ def show_path_matrix(dict):
                 print(dict[i][j][k], end = " ")
             print()
         print()
+        print()
         
 
 #fungsi utama untuk menyelesaikan puzzle
@@ -47,25 +48,30 @@ def solve_puzzle(initial, blank_space, target):
 
 #mengetahui apakah matrix solvable atau tidak
 def Kurangi (startmat, array_of_solve):
+    status = False
     for i in range (n):
         for j in range (n):
-            countKurang(startmat, startmat[i][j], i, j, array_of_solve)
-
+            if(startmat[i][j] > 0):
+                countKurang(startmat, startmat[i][j], i, j, array_of_solve)
+                if(status):
+                    array_of_solve[0] += 1
+            else:
+                status = True
+            
 def countKurang(startmat, number, num_row, num_col, array_of_solve):
     if(num_row != n-1 and num_col != n-1):
         for i in range (num_row, n):
             if(i > num_row):
                 starting_col = 0
             else:
-                starting_col = num_col + 1
+                starting_col = num_col
             for j in range (starting_col, n):
-                if(startmat[i][j] > number):
-                    array_of_solve[number - 1] += 1
+                if((startmat[i][j] < number)):
+                    array_of_solve[number] += 1
 
 def isSolvable(array_of_solve, startmat):
     sum = 0
     var = 0
-    print(array_of_solve)
     for i in range (len(array_of_solve)):
         sum += array_of_solve[i]
     #check for zero
@@ -86,7 +92,7 @@ def isSolvable(array_of_solve, startmat):
         return False
 
 #menghitung total cost untuk mencapai ke kondisi ideal/target
-def total_cost(currentMat, target):
+def total_cost(currentMat, target) -> int:
     count = 0
     for i in range(n):
         for j in range(n):
