@@ -10,12 +10,15 @@ class node:
         self.cost = cost
         self.level = level
     def __lt__(self, nextnode):
-        return self.cost < nextnode.cost
+        return (self.cost + self.level) < (nextnode.cost + nextnode.level)
 
 #membuat node baru
-def create_node(parent_matrix, blank_space, new_blank_space, level, parent_node, target):
+def create_node(parent_matrix, blank_space, new_blank_space, level, parent_node, target) -> node:
     new_matrix = copy.deepcopy(parent_matrix)
-    x1, y1, x2, y2 = blank_space[0], blank_space[1], new_blank_space[0], new_blank_space[1]
+    x1 = blank_space[0]
+    y1 = blank_space[1]
+    x2 = new_blank_space[0] 
+    y2 = new_blank_space[1]
     new_matrix[x1][y1], new_matrix[x2][y2] = new_matrix[x2][y2], new_matrix[x1][y1]
     cost = bb.total_cost(new_matrix, target)
     new_node = node(parent_node, new_matrix, new_blank_space, cost, level)
