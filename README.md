@@ -2,7 +2,7 @@
 > Tugas kecil 3 IF2211 Strategi Algoritma 2022
 
 ## General Information
-The program will automatically open a tab if our desired matrix is solvable by the program. Hence, the user will be able to interact with the GUI and see the movement of the puzzle from initial puzzle to target puzzle. However, if our desired matrix is unsolvable, there will be a message and pop-up tab to remind the user then the program execution will be stopped.
+The program will automatically open a tab if our desired matrix is solvable by the program. Hence, the user will be able to interact with the GUI and see the movement of the puzzle from initial puzzle to target puzzle. However, if our desired matrix is unsolvable, there will be a message and pop-up tab to remind the user. Then, the program execution will be stopped.
 
 ![ezgif-1-48abaf7d9a](https://user-images.githubusercontent.com/82803405/161474045-5bcbf51c-e8a1-4c99-abf4-6b19422f11f1.gif)
 
