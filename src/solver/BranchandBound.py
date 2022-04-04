@@ -76,6 +76,7 @@ def isSolvable(array_of_solve, startmat, rows, cols):
     sum = 0
     var = 0
     for i in range (len(array_of_solve)):
+        print("Kurang[" + str(i) + "]: " + str(array_of_solve[i]))
         sum += array_of_solve[i]
 
     #check for zero
@@ -87,7 +88,7 @@ def isSolvable(array_of_solve, startmat, rows, cols):
         var = 0
 
     total = sum + var
-    print("Nilai Kurang[i]: " + str(total))
+    print("Nilai total Kurang[i]: " + str(total))
     print()
     if (total % 2 == 0):
         return True
