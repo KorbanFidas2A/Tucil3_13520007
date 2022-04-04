@@ -14,9 +14,8 @@ The program will automatically open a tab if our desired matrix is solvable by t
 1. Run the program through GUI.py file
 2. To be safe, enter the full path to the file on the input section
    ex: D:\\Semester4\\StrategiAlgoritma\\Tucil3\\test.txt
-   ![image](https://user-images.githubusercontent.com/82803405/161472743-cf688459-7edd-4e46-ab73-4626294b9e62.png)
-
-4. change import os to your directory path where you store the file 
+   ![image](https://user-images.githubusercontent.com/82803405/161503479-c1cd49b3-8e79-4c31-acc0-b09f8865b763.png)
+3. change import os to your directory path where you store the file 
    ![image](https://user-images.githubusercontent.com/82803405/161471956-4af111d1-fe84-4ab9-b938-926c4aef5413.png)
 
 ## Contributors
