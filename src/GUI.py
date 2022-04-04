@@ -4,6 +4,7 @@ import numpy as np
 import time
 from tkinter import messagebox, Entry
 import sys
+import copy
 
 #ganti dengan path dimana menyimpan algoritma branch and bound
 sys.path.insert(0, 'D:\Semester4\StrategiAlgoritma\Tucil3\solver')
@@ -70,7 +71,7 @@ class GUI(Tk.Frame):
         self.parent.title("15-Puzzle Branch and Bound")       
         self.parent.grid_rowconfigure(1,weight=1)
         self.parent.grid_columnconfigure(1,weight=1)
-        root.geometry("700x700")
+        root.geometry("450x450")
 
         self.frame = Tk.Frame(self.parent)  
         self.frame.pack(fill=Tk.X, padx=1, pady=1)
@@ -97,7 +98,6 @@ class GUI(Tk.Frame):
         messagebox.showerror("Puzzle not available", "Puzzle tidak bisa dipecahkan!")
 
 if __name__ == "__main__": 
-    start = time.time()
     print("        __            .----------.                                                                                         ")
     print("...-'  |`.        /          /                                                                .---.                        ")
     print("|      |  |      /   ______.'            _________   _...._                                   |   |      __.....__         ")
@@ -111,33 +111,40 @@ if __name__ == "__main__":
     print("            '------'''                   .'     '.          |   `'.  |  /    /___  /    /___'---'    `''-...... -'         ")
     print("                                        '-----------'        '   .'|  '/|         ||         |                             ")
     print("                                                            `-'  `--' |_________||_________|                               ")
-    filename = input("Masukkan nama file yang diinginkan:  ")
+    filename = input("Masukkan nama path to file yang diinginkan:  ")
     initial = io.iomanage(filename)
+    rows, cols = bb.findZeroPos(initial)
 
-    #pengolahan array
+    #pengolahan array, mencari kurang]i
     array_of_solve = [0 for i in range (16)]
-    bb.Kurangi(initial, array_of_solve)
+    copymat = copy.deepcopy(initial)
+    copymat[rows][cols] = 16
 
+    bb.Kurangi(copymat, array_of_solve)
 
     #jika bisa diselesaikan
-    if(bb.isSolvable(array_of_solve, initial)):
+    if(bb.isSolvable(array_of_solve, copymat, rows, cols)):
+        start = time.time()
         final = [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ], [ 9, 10, 11, 12 ], [13, 14, 15, 0]]
-        empty_tile_pos = bb.findZeroPos(final)
+        empty_tile_pos = [rows, cols]
         dict = bb.solve_puzzle(initial, empty_tile_pos, final)
         bb.show_path_matrix(dict)
-        print(dict)
+        final_time = time.time()
         root=Tk.Tk()
         app = GUI(root)
         app.matrixmake(dict)
-        app.initialize()   
+        app.initialize()
+        print()
+        print("Waktu eksekusi program: " + str(final_time - start))   
         root.mainloop()
     #jika tidak bisa diselesaikan
     else:
+        start = time.time()
         root = Tk.Tk()
         app = GUI(root)
         app.error_msg()
+        final_time = time.time()
         print()
         print("Puzzle tidak bisa dipecahkan!")
-    final_time = time.time()
-    print()
-    print("Waktu eksekusi program: " + str(final_time - start))
+        print()
+        print("Waktu eksekusi program: " + str(final_time - start))
