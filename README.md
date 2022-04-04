@@ -4,7 +4,7 @@
 ## General Information
 The program will automatically open a tab if our desired matrix is solvable by the program. Hence, the user will be able to interact with the GUI and see the movement of the puzzle from initial puzzle to target puzzle. However, if our desired matrix is unsolvable, there will be a message and pop-up tab to remind the user then the program execution will be stopped.
 
-                      ![image](https://user-images.githubusercontent.com/82803405/161473673-4d9eec10-33e9-4fc0-8fa5-a473c768d4e0.png)     
+![image](https://user-images.githubusercontent.com/82803405/161473782-cca7e4d3-f768-4fc0-a960-18fdccf80df6.png)
 
 
 ## Setup
