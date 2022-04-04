@@ -4,6 +4,9 @@
 ## General Information
 The program will automatically open a tab if our desired matrix is solvable by the program. Hence, the user will be able to interact with the GUI and see the movement of the puzzle from initial puzzle to target puzzle. However, if our desired matrix is unsolvable, there will be a message and pop-up tab to remind the user then the program execution will be stopped.
 
+                      ![image](https://user-images.githubusercontent.com/82803405/161473636-9ba6aac8-3379-4ce1-a3aa-e166cebf1901.png)      
+
+
 ## Setup
 - Install Python Environment
 - Run Python
