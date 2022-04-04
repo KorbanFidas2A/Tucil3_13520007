@@ -65,9 +65,6 @@ class GUI(Tk.Frame):
 
     #untuk memulai pemrosesan pembuatan GUI    
     def initialize(self):
-        '''
-        Mengontrol board yang menampilkan angka
-        '''
         self.parent.title("15-Puzzle Branch and Bound")       
         self.parent.grid_rowconfigure(1,weight=1)
         self.parent.grid_columnconfigure(1,weight=1)
@@ -121,7 +118,6 @@ if __name__ == "__main__":
     copymat[rows][cols] = 16
 
     bb.Kurangi(copymat, array_of_solve)
-
     #jika bisa diselesaikan
     if(bb.isSolvable(array_of_solve, copymat, rows, cols)):
         start = time.time()
@@ -134,16 +130,15 @@ if __name__ == "__main__":
         app = GUI(root)
         app.matrixmake(dict)
         app.initialize()
-        print()
         print("Waktu eksekusi program: " + str(final_time - start))   
         root.mainloop()
     #jika tidak bisa diselesaikan
     else:
         start = time.time()
         root = Tk.Tk()
+        final_time = time.time()
         app = GUI(root)
         app.error_msg()
-        final_time = time.time()
         print()
         print("Puzzle tidak bisa dipecahkan!")
         print()
