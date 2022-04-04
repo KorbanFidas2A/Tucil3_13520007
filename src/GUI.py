@@ -7,7 +7,7 @@ import sys
 import copy
 
 #ganti dengan path dimana menyimpan algoritma branch and bound
-sys.path.insert(0, 'D:\Semester4\StrategiAlgoritma\Tucil3\solver')
+sys.path.insert(0, 'D:\Semester4\StrategiAlgoritma\Tucil3_13520007\Tucil3_13520007\src\solver')
 from solver import BranchandBound as bb, node, prioQueue, iomanager as io
 
 
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     initial = io.iomanage(filename)
     rows, cols = bb.findZeroPos(initial)
 
-    #pengolahan array, mencari kurang]i
+    #pengolahan array, mencari kurang[i]
     array_of_solve = [0 for i in range (16)]
     copymat = copy.deepcopy(initial)
     copymat[rows][cols] = 16
@@ -121,16 +121,18 @@ if __name__ == "__main__":
     #jika bisa diselesaikan
     if(bb.isSolvable(array_of_solve, copymat, rows, cols)):
         start = time.time()
+        node_count = 0
         final = [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ], [ 9, 10, 11, 12 ], [13, 14, 15, 0]]
         empty_tile_pos = [rows, cols]
-        dict = bb.solve_puzzle(initial, empty_tile_pos, final)
+        dict, node_count = bb.solve_puzzle(initial, empty_tile_pos, final)
         bb.show_path_matrix(dict)
         final_time = time.time()
         root=Tk.Tk()
         app = GUI(root)
         app.matrixmake(dict)
         app.initialize()
-        print("Waktu eksekusi program: " + str(final_time - start))   
+        print("Waktu eksekusi program: " + str(final_time - start))
+        print("Jumlah node yang dibangkitkan: " + str(node_count))   
         root.mainloop()
     #jika tidak bisa diselesaikan
     else:
@@ -143,3 +145,4 @@ if __name__ == "__main__":
         print("Puzzle tidak bisa dipecahkan!")
         print()
         print("Waktu eksekusi program: " + str(final_time - start))
+
