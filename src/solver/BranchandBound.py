@@ -25,6 +25,7 @@ def show_path_matrix(dict):
         print()
         print()
         
+#mengetahui posisi angka nol pada matriks (blank space)
 def findZeroPos (matrix):
     for i in range(n):
         for j in range(n):
@@ -32,6 +33,7 @@ def findZeroPos (matrix):
                 return [i, j]
             break
     return
+
 #fungsi utama untuk menyelesaikan puzzle
 def solve_puzzle(initial, blank_space, target):
     pq = prio.prioQueue()
@@ -52,7 +54,7 @@ def solve_puzzle(initial, blank_space, target):
                 pq.enqueue(child)
     return None
 
-#mengetahui apakah matrix solvable atau tidak
+#mengetahui apakah matrix solvable atau tidak, dengen metode Kurang[i], terlebih dahulu mengiterasi matriks satu per satu
 def Kurangi (startmat, array_of_solve):
     status = False
     for i in range (n):
@@ -63,7 +65,8 @@ def Kurangi (startmat, array_of_solve):
                     array_of_solve[0] += 1
             else:
                 status = True
-            
+
+#mencari atribut setiap elemen Kurang[i]
 def countKurang(startmat, number, num_row, num_col, array_of_solve):
     if(num_row != n-1 and num_col != n-1):
         for i in range (num_row, n):
@@ -75,6 +78,7 @@ def countKurang(startmat, number, num_row, num_col, array_of_solve):
                 if((startmat[i][j] < number)):
                     array_of_solve[number] += 1
 
+#mengembalikan boolean jika matriks bisa diselesaikan
 def isSolvable(array_of_solve, startmat):
     sum = 0
     var = 0
