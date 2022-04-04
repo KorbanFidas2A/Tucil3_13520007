@@ -40,17 +40,19 @@ def solve_puzzle(initial, blank_space, target):
     cost = total_cost(initial, target)
     root = nd.node(None, initial,blank_space, cost, 0)
     pq.enqueue(root)
+    node_count = 0
 
     while not pq.empty():
         min_node = pq.dequeue()
         if min_node.cost == 0:
             dict = []
             dict = createPath(min_node)
-            return dict
+            return dict, node_count
         for i in range(n):
             new_tile_pos = [min_node.blank_space[0] + row_and_cols[i][0], min_node.blank_space[1] + row_and_cols[i][1]]
             if isValid(new_tile_pos[0], new_tile_pos[1]):
                 child = nd.create_node(min_node.storedmat, min_node.blank_space, new_tile_pos, min_node.level + 1, min_node, target)
+                node_count += 1
                 pq.enqueue(child)
     return None
 
@@ -115,3 +117,4 @@ def createPath(root):
         dict = createPath(root.parent)
         dict.append(root.storedmat)
         return dict
+
