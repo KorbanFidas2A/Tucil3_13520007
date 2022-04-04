@@ -30,9 +30,9 @@ def findZeroPos (matrix):
     for i in range(n):
         for j in range(n):
             if (matrix[i][j] == 0):
-                return [i, j]
-            break
-    return
+                row = i
+                col = j
+    return row, col
 
 #fungsi utama untuk menyelesaikan puzzle
 def solve_puzzle(initial, blank_space, target):
@@ -56,46 +56,39 @@ def solve_puzzle(initial, blank_space, target):
 
 #mengetahui apakah matrix solvable atau tidak, dengen metode Kurang[i], terlebih dahulu mengiterasi matriks satu per satu
 def Kurangi (startmat, array_of_solve):
-    status = False
     for i in range (n):
         for j in range (n):
-            if(startmat[i][j] > 0):
-                countKurang(startmat, startmat[i][j], i, j, array_of_solve)
-                if(status):
-                    array_of_solve[0] += 1
-            else:
-                status = True
+            countKurang(startmat, startmat[i][j], i, j, array_of_solve)
 
 #mencari atribut setiap elemen Kurang[i]
 def countKurang(startmat, number, num_row, num_col, array_of_solve):
-    if(num_row != n-1 and num_col != n-1):
-        for i in range (num_row, n):
-            if(i > num_row):
-                starting_col = 0
-            else:
-                starting_col = num_col
-            for j in range (starting_col, n):
-                if((startmat[i][j] < number)):
-                    array_of_solve[number] += 1
+    for i in range (num_row, n):
+        if(i > num_row):
+            starting_col = 0
+        else:
+            starting_col = num_col
+        for j in range (starting_col, n):
+            if (startmat[i][j] < number):
+                array_of_solve[number-1] += 1
 
 #mengembalikan boolean jika matriks bisa diselesaikan
-def isSolvable(array_of_solve, startmat):
+def isSolvable(array_of_solve, startmat, rows, cols):
     sum = 0
     var = 0
     for i in range (len(array_of_solve)):
         sum += array_of_solve[i]
+
     #check for zero
-    for i in range (n):
-        for j in range(n):
-            if(startmat[i][j] == 0):
-                if(i % 2 == 0 and j % 2 == 1):
-                    var = 1
-                elif(i % 2 == 1 and j % 2 == 0):
-                    var = 1
-                else:
-                    var = 0
-            break
+    if(rows % 2 == 0 and cols % 2 == 1):
+        var = 1
+    elif(rows % 2 == 1 and cols % 2 == 0):
+        var = 1
+    else:
+        var = 0
+
     total = sum + var
+    print("Nilai Kurang[i]: " + str(total))
+    print()
     if (total % 2 == 0):
         return True
     else:
